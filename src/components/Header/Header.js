@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Header({ user, logout }) {
+function Header({ auth, logout }) {
   return (
     <nav className="main-nav">
-      {console.log(user)}
+      {console.log(auth)}
       <Link className="main-nav-logo" to="/">
         <img
           className="main-nav-logo-image"
@@ -14,7 +14,7 @@ function Header({ user, logout }) {
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
       <div>
-        {!user ? (
+        {!auth ? (
           <Link className="main-nav-item" to="/login">
             <i className="fa fa-user-circle"></i>
             Sign In

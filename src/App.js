@@ -1,5 +1,5 @@
 import Header from "./components/Header/Header";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login/Login";
 import Home from "./pages/Home/Home";
 import Footer from "./components/Footer/Footer";
@@ -9,36 +9,48 @@ import { useEffect, useState } from "react";
 import Auth from "./guards/Auth";
 
 function App() {
-  const [user, setUser] = useState(null);
+  const [auth, setAuth] = useState(null);
+
+  useEffect(() => {
+    let user = localStorage.getItem("user");
+    user && JSON.parse(user) ? setAuth(true) : setAuth(false);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("user", auth);
+  }, [auth]);
 
   return (
     <>
-      <Header user={user} logout={() => setUser(false)} />
+      <Header auth={auth} logout={() => setAuth(false)} />
       <Routes>
         <Route path="/" element={<Home PageName="Home Page" />} />
-        {!user && (
+        {!auth && (
           <>
             <Route
               path="/login"
               element={
                 <Login
                   PageName="Login Page"
-                  authenticate={() => setUser(true)}
+                  authenticate={() => setAuth(true)}
                 />
               }
             />
           </>
         )}
-        {user && (
+        {auth && (
           <Route
             path="/profile"
             element={
-              <Profile logout={() => setUser(false)} PageName="Profile Page" />
+              <Profile logout={() => setAuth(false)} PageName="Profile Page" />
             }
           />
         )}
 
-        <Route path="*" element={<ErrorPage />} />
+        <Route
+          path="*"
+          element={<Navigate to={auth ? "/profile" : "/login"} />}
+        />
       </Routes>
       <Footer />
     </>

@@ -1,12 +1,13 @@
 import { useNavigate } from "react-router-dom";
 
 const LoginForm = ({ authenticate }) => {
-  const navigate = useNavigate();
+  // renvoie une fonction qui nous permet de naviguer par programmation, par exemple après la soumission d'un formulaire.
+  const navigate = useNavigate(); // qui à remplacer le useHistory() sur la v6 de rrDom
+
   const handleSubmit = (e) => {
     e.preventDefault();
     authenticate();
     navigate("/profile");
-    console.log("test");
   };
 
   return (
