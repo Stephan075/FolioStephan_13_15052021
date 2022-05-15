@@ -1,6 +1,7 @@
 import React from "react";
 
 function Features() {
+  // liste des features
   const featureItem = [
     {
       images: "./img/icon-chat.png",
@@ -21,6 +22,7 @@ function Features() {
         "We use top of the line encryption to make sure your data and money is always safe.",
     },
   ];
+
   return (
     <section className="features">
       <h2 className="sr-only">Features</h2>
