@@ -1,13 +1,37 @@
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import callApi from "../../hooks/callApi";
 
 const LoginForm = ({ authenticate }) => {
+  const userRef = useRef();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  // focus l'input username
+  useEffect(() => {
+    userRef.current.focus();
+  }, []);
+
   // renvoie une fonction qui nous permet de naviguer par programmation, par exemple après la soumission d'un formulaire.
   const navigate = useNavigate(); // qui à remplacer le useHistory() sur la v6 de rrDom
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    authenticate();
-    navigate("/profile");
+  const handleSubmit = async (e) => {
+    // "tony@stark.com"
+    // "password123"
+    try {
+      e.preventDefault();
+
+      console.log(email, password);
+
+      const accessToken = await callApi.login(email, password);
+      //Si il ya bien un user qui existe on auth et on redirect à la page profile
+      if (accessToken) {
+        authenticate();
+        navigate("/profile");
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -18,11 +42,23 @@ const LoginForm = ({ authenticate }) => {
         <form onSubmit={(e) => handleSubmit(e)}>
           <div className="input-wrapper">
             <label htmlFor="username">Username</label>
-            <input type="text" id="username" />
+            <input
+              type="text"
+              id="username"
+              ref={userRef}
+              autoComplete="off"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+            />
           </div>
           <div className="input-wrapper">
             <label htmlFor="password">Password</label>
-            <input type="password" id="password" />
+            <input
+              type="password"
+              id="password"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+            />
           </div>
           <div className="input-remember">
             <input type="checkbox" id="remember-me" />

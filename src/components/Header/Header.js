@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function Header({ auth, logout }) {
   return (
     <nav className="main-nav">
-      {console.log(auth)}
+      {/* {console.log(auth)} */}
       <Link className="main-nav-logo" to="/">
         <img
           className="main-nav-logo-image"
