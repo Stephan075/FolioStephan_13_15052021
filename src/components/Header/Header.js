@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Header() {
+function Header({ logout }) {
   return (
     <nav className="main-nav">
       <Link className="main-nav-logo" to="/">
@@ -16,6 +16,14 @@ function Header() {
         <Link className="main-nav-item" to="/login">
           <i className="fa fa-user-circle"></i>
           Sign In
+        </Link>
+        <Link className="main-nav-item" to="./user.html">
+          <i className="fa fa-user-circle"></i>
+          Tony
+        </Link>
+        <Link onClick={logout} className="main-nav-item" to="/">
+          <i className="fa fa-sign-out"></i>
+          Sign Out
         </Link>
       </div>
     </nav>

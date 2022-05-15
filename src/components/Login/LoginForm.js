@@ -1,6 +1,11 @@
-const LoginForm = () => {
+import { useNavigate } from "react-router-dom";
+
+const LoginForm = ({ authenticate }) => {
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
+    authenticate();
+    navigate("/profile");
     console.log("test");
   };
 
