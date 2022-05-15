@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import Features from "../../components/Features/Features";
+import HeroBanner from "../../components/HeroBanner/HeroBanner";
 
 function Home({ PageName }) {
   // change titre de la page
@@ -6,9 +8,10 @@ function Home({ PageName }) {
     document.title = `Argent Bank - ${PageName}`;
   }, [PageName]);
   return (
-    <div>
-      <h1>This is the Guest Layout Page</h1>
-    </div>
+    <main>
+      <HeroBanner />
+      <Features />
+    </main>
   );
 }
 
