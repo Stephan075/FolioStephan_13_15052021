@@ -27,7 +27,6 @@ const LoginForm = ({ authenticate }) => {
       //Si il ya bien un user qui existe on auth et on redirect à la page profile
       if (accessToken) {
         authenticate();
-        navigate("/profile");
       }
     } catch (e) {
       console.log(e);

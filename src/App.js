@@ -9,15 +9,18 @@ import { useEffect, useState } from "react";
 import Auth from "./guards/Auth";
 
 function App() {
-  const [auth, setAuth] = useState(null);
+  const [auth, setAuth] = useState(
+    JSON.parse(localStorage.getItem("user")).auth // recup ce que j'ai dans le local en string et le convertire en JSON et identifier la variable dan
+  );
+
+  // useEffect(() => {
+  //   let user = JSON.parse(localStorage.getItem("user")).auth;
+  //   user ? setAuth(true) : setAuth(false);
+  //   console.log(auth);
+  // }, []);
 
   useEffect(() => {
-    let user = localStorage.getItem("user");
-    user && JSON.parse(user) ? setAuth(true) : setAuth(false);
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("user", auth);
+    localStorage.setItem("user", JSON.stringify({ auth }));
   }, [auth]);
 
   return (
