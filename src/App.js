@@ -10,16 +10,20 @@ import Auth from "./guards/Auth";
 
 function App() {
   const [auth, setAuth] = useState(
-    JSON.parse(localStorage.getItem("user")).auth // recup ce que j'ai dans le local en string et le convertire en JSON et identifier la variable dan
+    JSON.parse(localStorage.getItem("user"))?.auth // recup ce que j'ai dans le local en string et le convertire en JSON et identifier la variable dan
   );
 
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify({ auth }));
   }, [auth]);
 
+  const logout = () => {
+    setAuth(false);
+    localStorage.removeItem("token");
+  };
   return (
     <>
-      <Header auth={auth} logout={() => setAuth(false)} />
+      <Header auth={auth} logout={logout} />
       <Routes>
         <Route path="/" element={<Home PageName="Home Page" />} />
         {!auth && (

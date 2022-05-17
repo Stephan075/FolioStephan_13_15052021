@@ -1,11 +1,15 @@
 import { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { setToken } from "../../feature/token.slice";
 import callApi from "../../hooks/callApi";
 
 const LoginForm = ({ authenticate }) => {
   const userRef = useRef();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const dispatch = useDispatch();
 
   // focus l'input username
   useEffect(() => {
@@ -18,11 +22,14 @@ const LoginForm = ({ authenticate }) => {
     try {
       e.preventDefault();
 
-      const accessToken = await callApi.login(email, password);
+      const token = await callApi.login(email, password);
 
       //Si il ya bien un user qui existe on auth et on redirect à la page profile
-      if (accessToken) {
+      if (token) {
+        localStorage.setItem("token", token);
+
         authenticate();
+        dispatch(setToken(token));
       }
     } catch (e) {
       console.log(e);
