@@ -12,18 +12,14 @@ const LoginForm = ({ authenticate }) => {
     userRef.current.focus();
   }, []);
 
-  // renvoie une fonction qui nous permet de naviguer par programmation, par exemple après la soumission d'un formulaire.
-  const navigate = useNavigate(); // qui à remplacer le useHistory() sur la v6 de rrDom
-
   const handleSubmit = async (e) => {
     // "tony@stark.com"
     // "password123"
     try {
       e.preventDefault();
 
-      console.log(email, password);
-
       const accessToken = await callApi.login(email, password);
+
       //Si il ya bien un user qui existe on auth et on redirect à la page profile
       if (accessToken) {
         authenticate();

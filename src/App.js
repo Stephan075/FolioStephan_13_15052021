@@ -13,12 +13,6 @@ function App() {
     JSON.parse(localStorage.getItem("user")).auth // recup ce que j'ai dans le local en string et le convertire en JSON et identifier la variable dan
   );
 
-  // useEffect(() => {
-  //   let user = JSON.parse(localStorage.getItem("user")).auth;
-  //   user ? setAuth(true) : setAuth(false);
-  //   console.log(auth);
-  // }, []);
-
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify({ auth }));
   }, [auth]);
@@ -52,7 +46,7 @@ function App() {
 
         <Route
           path="*"
-          element={<Navigate to={auth ? "/profile" : "/login"} />}
+          element={<Navigate to={auth ? "/profile" : "/login"} />} //Navigate qui à remplacer le useHistory() sur la v6 de rrDom
         />
       </Routes>
       <Footer />
