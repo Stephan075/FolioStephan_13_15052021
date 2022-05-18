@@ -1,20 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserData } from "../../feature/user.slice";
+import callApi from "../../hooks/callApi";
 
 const Userinfo = () => {
+  const dispatch = useDispatch();
+
   const [displayForm, setDisplayForm] = useState(false);
   const [firstName, setFirstName] = useState("");
-  const [lastname, setLastname] = useState("");
+  const [lastName, setLastName] = useState("");
 
   const userData = useSelector((state) => state.userInfos.userInfos);
 
   useEffect(() => {
     setFirstName(userData?.firstName);
-    setLastname(userData?.lastName);
+    setLastName(userData?.lastName);
   }, [userData?.firstName, userData?.lastName]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      const update = await callApi.editUser(firstName, lastName);
+      dispatch(setUserData(update));
+      setDisplayForm(false);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -22,7 +33,7 @@ const Userinfo = () => {
       <h1>
         Welcome back
         <br />
-        {firstName} {lastname} !
+        {firstName} {lastName} !
       </h1>
       {displayForm ? (
         <form onSubmit={(e) => handleSubmit(e)}>
@@ -41,12 +52,12 @@ const Userinfo = () => {
               type="text"
               id="lastname"
               name="lastname"
-              defaultValue={lastname}
-              onChange={(e) => setLastname(e.target.value)}
+              defaultValue={lastName}
+              onChange={(e) => setLastName(e.target.value)}
             />
           </div>
           <div>
-            <button>Save</button>
+            <button type="submit">Save</button>
             <button type="button" onClick={() => setDisplayForm(false)}>
               Cancel
             </button>

@@ -24,8 +24,18 @@ const getCurrentUserData = () => {
   });
 };
 
+const editUser = (firstName, lastName) => {
+  return axios
+    .put("/user/profile", { firstName, lastName })
+    .then((response) => {
+      // console.log(response);
+      return response?.data?.body;
+    });
+};
+
 const callApi = {
   login,
   getCurrentUserData,
+  editUser,
 };
 export default callApi;
