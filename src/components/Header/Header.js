@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 function Header({ auth, logout }) {
+  const [firstName, setFirstName] = useState("");
+  const userData = useSelector((state) => state.userInfos.userInfos);
+
+  useEffect(() => {
+    setFirstName(userData?.firstName);
+  }, [userData?.firstName, userData?.lastName]);
+
   return (
     <nav className="main-nav">
       {/* {console.log(auth)} */}
@@ -23,7 +31,7 @@ function Header({ auth, logout }) {
           <>
             <Link className="main-nav-item" to="./user.html">
               <i className="fa fa-user-circle"></i>
-              Tony
+              {firstName}
             </Link>
             <Link onClick={logout} className="main-nav-item" to="/">
               <i className="fa fa-sign-out"></i>

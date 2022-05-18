@@ -17,13 +17,11 @@ const login = (email, password) => {
     });
 };
 
-const getCurrentUserData = (token) => {
-  return axios
-    .post("/user/profile", { headers: { Authorization: `Bearer ${token}` } })
-    .then((response) => {
-      // console.log(response.data.body);
-      return response.data.body;
-    });
+const getCurrentUserData = () => {
+  return axios.post("/user/profile").then((response) => {
+    // console.log(response.data.body);
+    return response?.data?.body;
+  });
 };
 
 const callApi = {
