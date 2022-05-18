@@ -1,37 +1,38 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { setUserData } from "../../feature/user.slice";
 import callApi from "../../hooks/callApi";
 import Form from "./Form";
 
 const Userinfo = () => {
-  const dispatch = useDispatch();
-
   const [displayForm, setDisplayForm] = useState(false);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
 
-  const userData = useSelector((state) => state.userInfos.userInfos);
+  const [currUserInfo, setCurrUserInfo] = useState({
+    firstName: "",
+    lastName: "",
+  });
+
+  const getUserData = useSelector((state) => state.userInfos.userInfos);
 
   useEffect(() => {
-    setFirstName(userData?.firstName);
-    setLastName(userData?.lastName);
-  }, [userData?.firstName, userData?.lastName]);
+    setCurrUserInfo({
+      firstName: getUserData?.firstName,
+      lastName: getUserData?.lastName,
+    });
+  }, [getUserData]);
 
   return (
     <div className="header">
       <h1>
         Welcome back
         <br />
-        {firstName} {lastName} !
+        {currUserInfo.firstName} {currUserInfo.lastName} !
       </h1>
       {displayForm ? (
         <Form
           setDisplayForm={setDisplayForm}
-          firstName={firstName}
-          setFirstName={setFirstName}
-          lastName={lastName}
-          setLastName={setLastName}
+          currUserInfo={currUserInfo}
+          setCurrUserInfo={setCurrUserInfo}
         />
       ) : (
         <button className="edit-button" onClick={() => setDisplayForm(true)}>

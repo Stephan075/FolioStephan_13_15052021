@@ -3,13 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUserData } from "../../feature/user.slice";
 import callApi from "../../hooks/callApi";
 
-const Form = ({
-  setDisplayForm,
-  firstName,
-  setFirstName,
-  lastName,
-  setLastName,
-}) => {
+const Form = ({ setDisplayForm, currUserInfo, setCurrUserInfo }) => {
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.userInfos.userInfos);
 
@@ -17,8 +11,14 @@ const Form = ({
     try {
       e.preventDefault();
 
-      if (firstName !== userData.firstName || lastName !== userData.lastName) {
-        const update = await callApi.editUser(firstName, lastName);
+      if (
+        currUserInfo.firstName !== userData.firstName ||
+        currUserInfo.lastName !== userData.lastName
+      ) {
+        const update = await callApi.editUser(
+          currUserInfo.firstName,
+          currUserInfo.lastName
+        );
         dispatch(setUserData(update));
       } else {
         console.log("aucune donnée n'est modifiée");
@@ -35,19 +35,23 @@ const Form = ({
         <label htmlFor="firstname">First Name</label>
         <input
           type="text"
-          name="firstname"
-          defaultValue={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
+          name="firstName"
+          defaultValue={currUserInfo.firstName}
+          onChange={(e) =>
+            setCurrUserInfo({ ...currUserInfo, firstName: e.target.value })
+          }
         />
       </div>
       <div>
         <label htmlFor="lastname">Last Name</label>
         <input
           type="text"
-          id="lastname"
-          name="lastname"
-          defaultValue={lastName}
-          onChange={(e) => setLastName(e.target.value)}
+          id="lastName"
+          name="lastName"
+          defaultValue={currUserInfo.lastName}
+          onChange={(e) =>
+            setCurrUserInfo({ ...currUserInfo, lastName: e.target.value })
+          }
         />
       </div>
       <div>
