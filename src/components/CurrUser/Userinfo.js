@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { setUserData } from "../../feature/user.slice";
-import callApi from "../../hooks/callApi";
 import Form from "./Form";
 
 const Userinfo = () => {
