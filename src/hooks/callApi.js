@@ -21,7 +21,8 @@ const getCurrentUserData = (token) => {
   return axios
     .post("/user/profile", { headers: { Authorization: `Bearer ${token}` } })
     .then((response) => {
-      console.log(response);
+      // console.log(response.data.body);
+      return response.data.body;
     });
 };
 
