@@ -45,31 +45,38 @@ const Form = ({ setDisplayForm }) => {
   };
 
   return (
-    <form onSubmit={(e) => handleSubmit(e)}>
-      <div>
-        <label htmlFor="firstname">First Name</label>
-        <input
-          type="text"
-          name="firstName"
-          defaultValue={inputForm.firstName}
-          onChange={(e) =>
-            setInputForm({ ...inputForm, firstName: e.target.value })
-          }
-        />
+    <form className="user-form" onSubmit={(e) => handleSubmit(e)}>
+      <div className="inputList">
+        <div>
+          <label htmlFor="firstname" hidden>
+            First Name
+          </label>
+          <input
+            type="text"
+            name="firstName"
+            defaultValue={inputForm.firstName}
+            onChange={(e) =>
+              setInputForm({ ...inputForm, firstName: e.target.value })
+            }
+          />
+        </div>
+        <div>
+          <label htmlFor="lastname" hidden>
+            Last Name
+          </label>
+          <input
+            type="text"
+            id="lastName"
+            name="lastName"
+            defaultValue={inputForm.lastName}
+            onChange={(e) =>
+              setInputForm({ ...inputForm, lastName: e.target.value })
+            }
+          />
+        </div>
       </div>
-      <div>
-        <label htmlFor="lastname">Last Name</label>
-        <input
-          type="text"
-          id="lastName"
-          name="lastName"
-          defaultValue={inputForm.lastName}
-          onChange={(e) =>
-            setInputForm({ ...inputForm, lastName: e.target.value })
-          }
-        />
-      </div>
-      <div>
+
+      <div className="user-form--btn">
         <button type="submit">Save</button>
         <button type="button" onClick={() => setDisplayForm(false)}>
           Cancel

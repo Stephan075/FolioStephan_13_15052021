@@ -14,6 +14,14 @@ const login = (email, password) => {
       // console.log(accessToken);
 
       return accessToken;
+    })
+    .catch(function (e) {
+      if (window.console || window.console.firebug) {
+        console.clear();
+      }
+      if (e.response) {
+        console.log(e.response.data);
+      }
     });
 };
 
