@@ -1,9 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import AccountCard from "../../components/CurrUser/AccountCard";
+import AccountItem from "../../components/CurrUser/AccountItem";
 import Userinfo from "../../components/CurrUser/Userinfo";
 import setAuthToken from "../../conf/axios-conf";
 import { setUserData } from "../../feature/user.slice";
 import callApi from "../../hooks/callApi";
+import { allAccount } from "../../mocks/content";
 
 // immer
 function Profile() {
@@ -29,6 +32,8 @@ function Profile() {
   return (
     <main className="main bg-dark">
       <Userinfo />
+      <h2 className="sr-only">Accounts</h2>
+      <AccountCard />
     </main>
   );
 }

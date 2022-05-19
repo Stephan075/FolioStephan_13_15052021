@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Features from "../../components/Features/Features";
 import HeroBanner from "../../components/HeroBanner/HeroBanner";
-import featureList from "../../mocks/content";
+import { featureList } from "../../mocks/content";
 
 function Home({ PageName }) {
   // change titre de la page
