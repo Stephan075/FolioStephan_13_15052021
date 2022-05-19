@@ -4,19 +4,12 @@ import Form from "./Form";
 
 const Userinfo = () => {
   const [displayForm, setDisplayForm] = useState(false);
-
-  const [currUserInfo, setCurrUserInfo] = useState({
-    firstName: "",
-    lastName: "",
-  });
+  const [user, setUser] = useState("");
 
   const getUserData = useSelector((state) => state.userInfos.userInfos);
 
   useEffect(() => {
-    setCurrUserInfo({
-      firstName: getUserData?.firstName,
-      lastName: getUserData?.lastName,
-    });
+    setUser(getUserData);
   }, [getUserData]);
 
   return (
@@ -24,14 +17,10 @@ const Userinfo = () => {
       <h1>
         Welcome back
         <br />
-        {currUserInfo.firstName} {currUserInfo.lastName} !
+        {user?.firstName} {user?.lastName} !
       </h1>
       {displayForm ? (
-        <Form
-          setDisplayForm={setDisplayForm}
-          currUserInfo={currUserInfo}
-          setCurrUserInfo={setCurrUserInfo}
-        />
+        <Form setDisplayForm={setDisplayForm} />
       ) : (
         <button className="edit-button" onClick={() => setDisplayForm(true)}>
           Edit Name

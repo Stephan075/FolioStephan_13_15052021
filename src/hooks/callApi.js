@@ -24,11 +24,11 @@ const getCurrentUserData = () => {
   });
 };
 
-const editUser = (firstName, lastName) => {
+const updateCurrentUserData = (firstName, lastName) => {
   return axios
     .put("/user/profile", { firstName, lastName })
     .then((response) => {
-      console.log(response);
+      console.log(response?.data?.body);
       return response?.data?.body;
     });
 };
@@ -36,6 +36,6 @@ const editUser = (firstName, lastName) => {
 const callApi = {
   login,
   getCurrentUserData,
-  editUser,
+  updateCurrentUserData,
 };
 export default callApi;

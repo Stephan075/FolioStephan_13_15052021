@@ -1,24 +1,40 @@
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserData } from "../../feature/user.slice";
+import { editUser } from "../../feature/user.slice";
 import callApi from "../../hooks/callApi";
 
-const Form = ({ setDisplayForm, currUserInfo, setCurrUserInfo }) => {
+const Form = ({ setDisplayForm }) => {
+  const [inputForm, setInputForm] = useState({
+    firstName: "",
+    lastName: "",
+  });
+
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.userInfos.userInfos);
+
+  useEffect(() => {
+    setInputForm({
+      firstName: userData?.firstName,
+      lastName: userData?.lastName,
+    });
+  }, [userData?.firstName, userData?.lastName]);
 
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
 
       if (
-        currUserInfo.firstName !== userData.firstName ||
-        currUserInfo.lastName !== userData.lastName
+        inputForm.firstName !== userData.firstName ||
+        inputForm.lastName !== userData.lastName
       ) {
-        const update = await callApi.editUser(
-          currUserInfo.firstName,
-          currUserInfo.lastName
+        const update = await callApi.updateCurrentUserData(
+          inputForm.firstName,
+          inputForm.lastName
         );
-        dispatch(setUserData(update));
+
+        const { firstName, lastName } = update;
+        const infosUpdate = { firstName, lastName };
+        dispatch(editUser(infosUpdate));
       } else {
         console.log("aucune donnée n'est modifiée");
       }
@@ -35,9 +51,9 @@ const Form = ({ setDisplayForm, currUserInfo, setCurrUserInfo }) => {
         <input
           type="text"
           name="firstName"
-          defaultValue={currUserInfo.firstName}
+          defaultValue={inputForm.firstName}
           onChange={(e) =>
-            setCurrUserInfo({ ...currUserInfo, firstName: e.target.value })
+            setInputForm({ ...inputForm, firstName: e.target.value })
           }
         />
       </div>
@@ -47,9 +63,9 @@ const Form = ({ setDisplayForm, currUserInfo, setCurrUserInfo }) => {
           type="text"
           id="lastName"
           name="lastName"
-          defaultValue={currUserInfo.lastName}
+          defaultValue={inputForm.lastName}
           onChange={(e) =>
-            setCurrUserInfo({ ...currUserInfo, lastName: e.target.value })
+            setInputForm({ ...inputForm, lastName: e.target.value })
           }
         />
       </div>
