@@ -17,7 +17,8 @@ const Userinfo = () => {
       <h1>
         Welcome back
         <br />
-        {user?.firstName} {user?.lastName} !
+        {!displayForm && `${user?.firstName} ${user?.lastName}`}
+        {/* {user?.firstName} {user?.lastName} ! */}
       </h1>
       {displayForm ? (
         <Form setDisplayForm={setDisplayForm} />

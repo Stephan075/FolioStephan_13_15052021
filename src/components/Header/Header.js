@@ -8,7 +8,7 @@ function Header({ auth, logout }) {
 
   useEffect(() => {
     setFirstName(userData?.firstName);
-  }, [userData?.firstName, userData?.lastName]);
+  }, [userData?.firstName]);
 
   return (
     <nav className="main-nav">

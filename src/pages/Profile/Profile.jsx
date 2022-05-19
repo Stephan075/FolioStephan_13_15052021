@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AccountCard from "../../components/CurrUser/AccountCard";
-import AccountItem from "../../components/CurrUser/AccountItem";
 import Userinfo from "../../components/CurrUser/Userinfo";
 import setAuthToken from "../../conf/axios-conf";
 import { setUserData } from "../../feature/user.slice";
