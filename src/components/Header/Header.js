@@ -30,8 +30,7 @@ function Header({ auth, logout }) {
         ) : (
           <>
             <Link className="main-nav-item" to="./user.html">
-              <i className="fa fa-user-circle"></i>
-              {firstName}
+              <i className="fa fa-user-circle"></i> {firstName}
             </Link>
             <Link onClick={logout} className="main-nav-item" to="/">
               <i className="fa fa-sign-out"></i>
