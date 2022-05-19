@@ -6,7 +6,6 @@ import Userinfo from "../../components/CurrUser/Userinfo";
 import setAuthToken from "../../conf/axios-conf";
 import { setUserData } from "../../feature/user.slice";
 import callApi from "../../hooks/callApi";
-import { allAccount } from "../../mocks/content";
 
 // immer
 function Profile() {

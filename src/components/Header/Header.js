@@ -21,11 +21,11 @@ function Header({ auth, logout }) {
         />
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
-      <div>
+      <div className="userInfo">
         {!auth ? (
           <Link className="main-nav-item" to="/login">
             <i className="fa fa-user-circle"></i>
-            Sign In
+            &thinsp;Sign In
           </Link>
         ) : (
           <>
