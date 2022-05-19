@@ -4,9 +4,7 @@ import Login from "./pages/Login/Login";
 import Home from "./pages/Home/Home";
 import Footer from "./components/Footer/Footer";
 import Profile from "./pages/Profile/Profile";
-import ErrorPage from "./pages/ErrorPage/ErrorPage";
 import { useEffect, useState } from "react";
-import Auth from "./guards/Auth";
 
 function App() {
   const [auth, setAuth] = useState(
