@@ -5,8 +5,12 @@ import Home from "./pages/Home/Home";
 import Footer from "./components/Footer/Footer";
 import Profile from "./pages/Profile/Profile";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { setUserData } from "./feature/user.slice";
 
 function App() {
+  const dispatch = useDispatch();
+
   const [auth, setAuth] = useState(
     JSON.parse(localStorage.getItem("user"))?.auth // recup ce que j'ai dans le local en string et le convertire en JSON et identifier la variable dan
   );
@@ -15,8 +19,10 @@ function App() {
     localStorage.setItem("user", JSON.stringify({ auth }));
   }, [auth]);
 
+  //permet de se déconnecter
   const logout = () => {
     setAuth(false);
+    dispatch(setUserData({}));
     localStorage.removeItem("token");
   };
   return (
