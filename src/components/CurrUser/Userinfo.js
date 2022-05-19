@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Form from "./Form";
 
+// petit header de la page profile retourne les information de l'utilisateur curr ( nom,prénom)
 const Userinfo = () => {
   const [displayForm, setDisplayForm] = useState(false);
   const [user, setUser] = useState("");

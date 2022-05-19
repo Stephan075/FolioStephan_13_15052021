@@ -29,8 +29,7 @@ function Home({ PageName }) {
     } catch (e) {
       console.log(e);
     }
-    document.title = `Argent Bank - ${PageName}`;
-  }, [PageName, dispatch]);
+  }, [dispatch]);
   return (
     <main>
       <HeroBanner />

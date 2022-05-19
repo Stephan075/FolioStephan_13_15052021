@@ -14,11 +14,11 @@ function Profile() {
 
   useEffect(() => {
     try {
+      //récupère les informations de l'utilisateur et les ajouté au state
       const getUserInfo = async () => {
         setAuthToken(token);
         const userData = await callApi.getCurrentUserData();
-
-        userData && dispatch(setUserData(userData));
+        return userData && dispatch(setUserData(userData));
       };
       getUserInfo();
     } catch (e) {
