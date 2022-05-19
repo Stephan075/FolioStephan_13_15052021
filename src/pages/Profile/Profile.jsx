@@ -10,6 +10,7 @@ import callApi from "../../hooks/callApi";
 function Profile() {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token.token);
+  const user = useSelector((state) => state.userInfos.userInfos);
 
   useEffect(() => {
     try {
@@ -17,15 +18,17 @@ function Profile() {
         setAuthToken(token);
         const userData = await callApi.getCurrentUserData();
 
-        if (userData) {
-          dispatch(setUserData(userData));
-        }
+        userData && dispatch(setUserData(userData));
       };
       getUserInfo();
     } catch (e) {
       console.log(e);
     }
   }, [token, dispatch]);
+
+  useEffect(() => {
+    document.title = `Argent Bank -  ${user?.firstName} ${user?.lastName}`;
+  }, [user]);
 
   return (
     <main className="main bg-dark">
