@@ -11,14 +11,13 @@ export const userSlice = createSlice({
       state.userInfos = action.payload;
     },
     editUser: (state, action) => {
-      console.log(current(state.userInfos));
-      console.log(action.payload);
+      // console.log(current(state.userInfos));
+      // console.log(action.payload);
 
       state.userInfos = {
         ...state.userInfos,
         ...action.payload,
       };
-      console.log(state.userInfos);
     },
   },
 });
