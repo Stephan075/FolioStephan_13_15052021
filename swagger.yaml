@@ -112,6 +112,213 @@ paths:
           description: Invalid Fields
         "500":
           description: Internal Server Error
+  /user/profile/transactions:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - User Transactions
+      summary: User Transactions API
+      description: API to distribute the list of transactions for the current month
+      parameters:
+        - type: string
+          in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Transaction successfully recovered
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Transaction"
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+  /user/profile/transaction/{transactionsId}/category:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - User Transactions
+      summary: User add category detail Transaction API
+      description: API adds the detail on a transaction
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          type: string
+          required: true
+        - in: path
+          name: transactionsId
+          description: ID of transaction to fetch
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Create a detail transaction
+          required: true
+          schema:
+            $ref: "#/definitions/TransactionsAddCategory"
+      produces:
+        - application/json
+      responses:
+        "201":
+          description: User transaction category created successfully
+          schema:
+            $ref: "#/definitions/Transaction"
+        "400":
+          description: Invalid Fields
+        "500":
+          description: Internal Server Error
+  /user/profile/transaction/{transactionsId}/notes:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - User Transactions
+      summary: User add notes details Transaction API
+      description: API adds the detail on a transaction
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          type: string
+          required: true
+        - in: path
+          name: transactionsId
+          description: ID of transaction to fetch
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Create a note transaction
+          required: true
+          schema:
+            $ref: "#/definitions/TransactionsAddNotes"
+      produces:
+        - application/json
+      responses:
+        "201":
+          description: User transaction category created successfully
+          schema:
+            $ref: "#/definitions/Transaction"
+        "400":
+          description: Invalid Fields
+        "500":
+          description: Internal Server Error
+  /user/profile/transaction/{transactionsId}/updateCategory:
+    patch:
+      security:
+        - Bearer: []
+      tags:
+        - User Transactions
+      summary: User update category detail Transaction API
+      description: API update the detail on a transaction
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          type: string
+          required: true
+        - in: path
+          name: transactionsId
+          description: ID of transaction to fetch
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Create a detail transaction
+          required: true
+          schema:
+            $ref: "#/definitions/TransactionsUpdateCategory"
+      produces:
+        - application/json
+      responses:
+        "201":
+          description: User transaction category created successfully
+          schema:
+            $ref: "#/definitions/Transaction"
+        "400":
+          description: Invalid Fields
+        "500":
+          description: Internal Server Error
+  /user/profile/transaction/{transactionsId}/updateNotes:
+    patch:
+      security:
+        - Bearer: []
+      tags:
+        - User Transactions
+      summary: User update notes detail Transaction API
+      description: API update the detail on a transaction
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          type: string
+          required: true
+        - in: path
+          name: transactionsId
+          description: ID of transaction to fetch
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Create a detail transaction
+          required: true
+          schema:
+            $ref: "#/definitions/TransactionsUpdateNotes"
+      produces:
+        - application/json
+      responses:
+        "201":
+          description: User transaction category created successfully
+          schema:
+            $ref: "#/definitions/Transaction"
+        "400":
+          description: Invalid Fields
+        "500":
+          description: Internal Server Error
+  /user/profile/transaction/{transactionsId}/deleteCategory:
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - User Transactions
+      summary: User delete notes detail Transaction API
+      description: API delete the detail on a transaction
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          type: string
+          required: true
+        - in: path
+          name: transactionsId
+          description: ID of transaction to fetch
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Create a detail transaction
+          required: true
+          schema:
+            $ref: "#/definitions/TransactionsDeleteCategory"
+      produces:
+        - application/json
+      responses:
+        "201":
+          description: User transaction category created successfully
+          schema:
+            $ref: "#/definitions/Transaction"
+        "400":
+          description: Invalid Fields
+        "500":
+          description: Internal Server Error
 securityDefinitions:
   Bearer:
     type: apiKey
@@ -165,4 +372,67 @@ definitions:
       firstName:
         type: string
       lastName:
+        type: string
+  Transaction:
+    type: object
+    properties:
+      id:
+        type: string
+        description: transaction ID
+        example: 62815a98bab4c20e2c6f54ab
+      date:
+        type: string
+        description: transaction date
+        example: "2020-06-20"
+      description:
+        type: string
+        description: transaction description
+        example: "Golden Sun Bakery"
+      amount:
+        type: integer
+        description: transaction amount
+        example: 5
+      balance:
+        type: integer
+        description: account balance after transaction
+        example: 2082.79
+      TransactionDetails:
+        type: object
+        properties:
+          transaction type:
+            type: string
+            description: transaction type
+            example: Electronic
+          category:
+            type: string
+            description: transaction category
+            example: Food
+          notes:
+            type: string
+            description: transaction notes
+            example: Macdo
+  TransactionsAddCategory:
+    type: object
+    properties:
+      category:
+        type: string
+  TransactionsAddNotes:
+    type: object
+    properties:
+      notes:
+        type: string
+  TransactionsUpdateCategory:
+    type: object
+    properties:
+      category:
+        type: string
+  TransactionsUpdateNotes:
+    type: object
+    properties:
+      notes:
+        type: string
+  TransactionsDeleteCategory:
+    type: object
+    properties:
+      notes:
         type: string
