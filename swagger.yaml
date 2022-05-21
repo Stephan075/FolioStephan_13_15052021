@@ -312,11 +312,13 @@ paths:
         - application/json
       responses:
         "201":
-          description: User transaction category created successfully
+          description: User transaction category delete successfully
           schema:
             $ref: "#/definitions/Transaction"
         "400":
           description: Invalid Fields
+        "404":
+          description: Category not found
         "500":
           description: Internal Server Error
 securityDefinitions:
