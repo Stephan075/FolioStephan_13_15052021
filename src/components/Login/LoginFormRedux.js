@@ -6,6 +6,8 @@ import callApi from "../../hooks/callApi";
 
 const LoginFormRedux = () => {
   const userRef = useRef();
+  const dispatch = useDispatch();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -13,7 +15,16 @@ const LoginFormRedux = () => {
 
   const { email, password } = formData;
 
-  const onChange = () => {};
+  const { user, isError, isSuccess, message } = useSelector((state) => {
+    return state.auth;
+  });
+
+  const onChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
 
   // focus l'input username
   useEffect(() => {
@@ -22,10 +33,6 @@ const LoginFormRedux = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setFormData((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
   };
 
   return (
