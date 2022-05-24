@@ -20,7 +20,7 @@ const login = (email, password) => {
         console.clear();
       }
       if (e.response) {
-        console.log(e.response.data);
+        // console.log(e.response.data);
         return e.response.data;
       }
     });
@@ -28,7 +28,7 @@ const login = (email, password) => {
 
 const getCurrentUserData = () => {
   return axios.post("/user/profile").then((response) => {
-    console.log(response.data.body);
+    // console.log(response.data.body);
     return response?.data?.body;
   });
 };

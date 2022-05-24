@@ -27,10 +27,10 @@ const LoginForm = ({ authenticate }) => {
       e.preventDefault();
 
       const token = await callApi.login(email, password);
-      console.log(token);
 
-      if (token.message) {
-        setError(token.message);
+      if (token.status === 400) {
+        let errMessage = token.message.split(":");
+        setError(errMessage[1]);
       } else {
         //Si il ya bien un user qui existe on auth et on redirect à la page profile
         if (token) {
@@ -74,7 +74,8 @@ const LoginForm = ({ authenticate }) => {
             />
           </div>
 
-          {error && <span>{error}</span>}
+          {error && <p className="error-message">{error}</p>}
+          {/* {console.log(error)} */}
 
           <div className="input-remember">
             <input type="checkbox" id="remember-me" />
