@@ -1,14 +1,19 @@
 import { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setToken } from "../../feature/token.slice";
+import { setEmail, setPassword } from "../../feature/user.slice";
 import callApi from "../../hooks/callApi";
 
 const LoginForm = ({ authenticate }) => {
   const userRef = useRef();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
 
   const dispatch = useDispatch();
+
+  const email = useSelector((state) => state.userInfos.email);
+  const password = useSelector((state) => state.userInfos.password);
 
   // focus l'input username
   useEffect(() => {
@@ -22,14 +27,21 @@ const LoginForm = ({ authenticate }) => {
       e.preventDefault();
 
       const token = await callApi.login(email, password);
+      console.log(token);
 
-      //Si il ya bien un user qui existe on auth et on redirect à la page profile
-      if (token) {
-        localStorage.setItem("token", token);
+      if (token.message) {
+        setError(token.message);
+      } else {
+        //Si il ya bien un user qui existe on auth et on redirect à la page profile
+        if (token) {
+          localStorage.setItem("token", token);
 
-        authenticate();
-        dispatch(setToken(token));
+          authenticate();
+          dispatch(setToken(token));
+        }
       }
+      dispatch(setEmail(null));
+      dispatch(setPassword(null));
     } catch (e) {
       console.log(e);
     }
@@ -48,8 +60,8 @@ const LoginForm = ({ authenticate }) => {
               id="username"
               ref={userRef}
               autoComplete="off"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
+              onChange={(e) => dispatch(setEmail(e.target.value))}
+              // value={email}
             />
           </div>
           <div className="input-wrapper">
@@ -57,10 +69,13 @@ const LoginForm = ({ authenticate }) => {
             <input
               type="password"
               id="password"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
+              onChange={(e) => dispatch(setPassword(e.target.value))}
+              // value={password}
             />
           </div>
+
+          {error && <span>{error}</span>}
+
           <div className="input-remember">
             <input type="checkbox" id="remember-me" />
             <label htmlFor="remember-me">Remember me</label>

@@ -130,13 +130,49 @@ paths:
         - application/json
       responses:
         "200":
-          description: Transaction successfully recovered
+          description: The list of all transactions, successfully recovered
           schema:
             type: array
             items:
               $ref: "#/definitions/Transaction"
         "401":
           description: Unauthorized
+        "500":
+          description: Internal Server Error
+  /user/profile/transaction/{transactionsId}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - User Transactions
+      summary: Search for a transaction using the id
+      description: search for a transaction using the id
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          type: string
+          required: true
+        - in: path
+          name: transactionsId
+          description: ID of transaction to fetch
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Create a detail transaction
+          required: true
+          schema:
+            $ref: "#/definitions/Transaction"
+      produces:
+        - application/json
+      responses:
+        "201":
+          description: The Search Transaction, successfully recovered
+          schema:
+            $ref: "#/definitions/Transaction"
+        "400":
+          description: Request id does not exist
         "500":
           description: Internal Server Error
   /user/profile/transaction/{transactionsId}/category:
@@ -212,7 +248,7 @@ paths:
         "500":
           description: Internal Server Error
   /user/profile/transaction/{transactionsId}/updateCategory:
-    patch:
+    put:
       security:
         - Bearer: []
       tags:
@@ -248,7 +284,7 @@ paths:
         "500":
           description: Internal Server Error
   /user/profile/transaction/{transactionsId}/updateNotes:
-    patch:
+    put:
       security:
         - Bearer: []
       tags:

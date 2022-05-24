@@ -21,6 +21,7 @@ const login = (email, password) => {
       }
       if (e.response) {
         console.log(e.response.data);
+        return e.response.data;
       }
     });
 };
