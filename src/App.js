@@ -11,18 +11,17 @@ import { setUserData } from "./feature/user.slice";
 function App() {
   const dispatch = useDispatch();
 
-  const [auth, setAuth] = useState(
-    JSON.parse(localStorage.getItem("user"))?.auth // recup ce que j'ai dans le local en string et le convertire en JSON et identifier la variable dan
-  );
+  const [auth, setAuth] = useState();
+  // JSON.parse(localStorage.getItem("user"))?.auth // recup ce que j'ai dans le local en string et le convertire en JSON et identifier la variable dan
 
   useEffect(() => {
-    localStorage.setItem("user", JSON.stringify({ auth }));
+    // localStorage.setItem("user", JSON.stringify({ auth }));
   }, [auth]);
 
   //permet de se déconnecter
   const logout = () => {
     setAuth(false);
-    dispatch(setUserData({}));
+    // dispatch(setUserData({}));
     localStorage.removeItem("token");
   };
   return (
