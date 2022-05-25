@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Features from "../../components/Features/Features";
 import HeroBanner from "../../components/HeroBanner/HeroBanner";
 import setAuthToken from "../../conf/axios-conf";
@@ -9,6 +9,8 @@ import { featureList } from "../../mocks/content";
 
 function Home({ PageName }) {
   const dispatch = useDispatch();
+  const token = useSelector((state) => state.token.token);
+
   // change titre de la page
   useEffect(() => {
     document.title = `Argent Bank - ${PageName}`;
@@ -16,20 +18,17 @@ function Home({ PageName }) {
 
   useEffect(() => {
     try {
+      //récupère les informations de l'utilisateur et les ajouté au state
       const getUserInfo = async () => {
-        const token = localStorage.getItem("token");
-
-        if (token) {
-          setAuthToken(token);
-          const userData = await callApi.getCurrentUserData();
-          dispatch(setUserData(userData));
-        }
+        setAuthToken(token);
+        const userData = await callApi.getCurrentUserData();
+        return dispatch(setUserData(userData));
       };
       getUserInfo();
     } catch (e) {
       console.log(e);
     }
-  }, [dispatch]);
+  }, [token, dispatch]);
   return (
     <main>
       <HeroBanner />

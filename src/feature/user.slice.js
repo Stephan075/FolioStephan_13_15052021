@@ -10,7 +10,10 @@ export const userSlice = createSlice({
   //logique
   reducers: {
     setUserData: (state, action) => {
-      state.userInfos = action.payload;
+      state.userInfos = {
+        ...state.userInfos,
+        ...action.payload,
+      };
     },
     editUser: (state, action) => {
       // console.log(current(state.userInfos));
@@ -20,12 +23,6 @@ export const userSlice = createSlice({
         ...state.userInfos,
         ...action.payload,
       };
-    },
-    setEmail: (state, action) => {
-      state.email = action.payload;
-    },
-    setPassword: (state, action) => {
-      state.password = action.payload;
     },
   },
 });

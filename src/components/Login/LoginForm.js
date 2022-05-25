@@ -1,24 +1,33 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setToken } from "../../feature/token.slice";
-import { setEmail, setPassword } from "../../feature/user.slice";
 import callApi from "../../hooks/callApi";
 
 const LoginForm = ({ authenticate }) => {
   const userRef = useRef();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const { email, password } = formData;
+
   const [error, setError] = useState(false);
 
   const dispatch = useDispatch();
-
-  // const email = useSelector((state) => state.userInfos.email);
-  // const password = useSelector((state) => state.userInfos.password);
 
   // focus l'input username
   useEffect(() => {
     userRef.current.focus();
   }, []);
+
+  const onChange = (e) => {
+    setFormData((prevForm) => ({
+      ...prevForm,
+      [e.target.name]: e.target.value,
+    }));
+  };
 
   const handleSubmit = async (e) => {
     // "tony@stark.com"
@@ -40,8 +49,6 @@ const LoginForm = ({ authenticate }) => {
           dispatch(setToken(token));
         }
       }
-      // dispatch(setEmail(null));
-      // dispatch(setPassword(null));
     } catch (e) {
       console.log(e);
     }
@@ -57,11 +64,13 @@ const LoginForm = ({ authenticate }) => {
             <label htmlFor="username">Username</label>
             <input
               type="text"
-              id="username"
+              id="email"
+              name="email"
               ref={userRef}
               autoComplete="off"
-              onChange={(e) => setEmail(e.target.value)}
-              // value={email}
+              onChange={onChange}
+              placeholder="Enter your email"
+              value={email}
             />
           </div>
           <div className="input-wrapper">
@@ -69,8 +78,10 @@ const LoginForm = ({ authenticate }) => {
             <input
               type="password"
               id="password"
-              onChange={(e) => setPassword(e.target.value)}
-              // value={password}
+              name="password"
+              onChange={onChange}
+              placeholder="Enter password"
+              value={password}
             />
           </div>
 
