@@ -18,13 +18,15 @@ function Home({ PageName }) {
 
   useEffect(() => {
     try {
-      //récupère les informations de l'utilisateur et les ajouté au state
-      const getUserInfo = async () => {
-        setAuthToken(token);
-        const userData = await callApi.getCurrentUserData();
-        return dispatch(setUserData(userData));
-      };
-      getUserInfo();
+      if (token) {
+        //récupère les informations de l'utilisateur et les ajouté au state
+        const getUserInfo = async () => {
+          setAuthToken(token);
+          const userData = await callApi.getCurrentUserData();
+          return dispatch(setUserData(userData));
+        };
+        getUserInfo();
+      }
     } catch (e) {
       console.log(e);
     }

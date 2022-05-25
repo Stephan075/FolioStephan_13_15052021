@@ -6,7 +6,8 @@ import Footer from "./components/Footer/Footer";
 import Profile from "./pages/Profile/Profile";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { setUserData } from "./feature/user.slice";
+import { resetData, setUserData } from "./feature/user.slice";
+import { resetToken, setToken } from "./feature/token.slice";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,7 +23,8 @@ function App() {
   //permet de se déconnecter
   const logout = () => {
     setAuth(false);
-    dispatch(setUserData({}));
+    dispatch(resetData());
+    dispatch(resetToken());
     localStorage.removeItem("token");
   };
   return (

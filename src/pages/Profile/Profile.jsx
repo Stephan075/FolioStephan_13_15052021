@@ -13,16 +13,18 @@ function Profile() {
   const user = useSelector((state) => state.userInfos.userInfos);
 
   useEffect(() => {
-    try {
-      //récupère les informations de l'utilisateur et les ajouté au state
-      const getUserInfo = async () => {
-        setAuthToken(token);
-        const userData = await callApi.getCurrentUserData();
-        return userData && dispatch(setUserData(userData));
-      };
-      getUserInfo();
-    } catch (e) {
-      console.log(e);
+    if (token) {
+      try {
+        //récupère les informations de l'utilisateur et les ajouté au state
+        const getUserInfo = async () => {
+          setAuthToken(token);
+          const userData = await callApi.getCurrentUserData();
+          return userData && dispatch(setUserData(userData));
+        };
+        getUserInfo();
+      } catch (e) {
+        console.log(e);
+      }
     }
   }, [token, dispatch]);
 
