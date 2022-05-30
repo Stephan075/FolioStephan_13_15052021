@@ -163,14 +163,14 @@ paths:
           description: Create a detail transaction
           required: true
           schema:
-            $ref: "#/definitions/Transaction"
+            $ref: "#/definitions/TransactionItem"
       produces:
         - application/json
       responses:
         "201":
           description: The Search Transaction, successfully recovered
           schema:
-            $ref: "#/definitions/Transaction"
+            $ref: "#/definitions/TransactionItem"
         "400":
           description: Request id does not exist
         "500":
@@ -412,6 +412,23 @@ definitions:
       lastName:
         type: string
   Transaction:
+    example:
+      - id: 62815a98bab4c20e2c6f54ab
+        date: "2020-06-20"
+        description: "Golden Sun Bakery"
+        amount: 5
+        balance: 2082.79
+        TransactionDetails:
+          { transaction type: Electronic, category: Food, notes: Macdo }
+
+      - id: 62815a98bab4c20e2c6f54ab
+        date: "2020-06-20"
+        description: "Golden Sun Bakery"
+        amount: 5
+        balance: 2082.79
+        TransactionDetails:
+          { transaction type: Electronic, category: Food, notes: Macdo }
+  TransactionItem:
     type: object
     properties:
       id:
