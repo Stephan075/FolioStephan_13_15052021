@@ -158,12 +158,7 @@ paths:
           description: ID of transaction to fetch
           required: true
           type: string
-        - in: body
-          name: body
-          description: Create a detail transaction
-          required: true
-          schema:
-            $ref: "#/definitions/TransactionItem"
+
       produces:
         - application/json
       responses:
@@ -206,7 +201,7 @@ paths:
         "201":
           description: User transaction category created successfully
           schema:
-            $ref: "#/definitions/Transaction"
+            $ref: "#/definitions/TransactionItemDetailEdit"
         "400":
           description: Invalid Fields
         "500":
@@ -242,7 +237,7 @@ paths:
         "201":
           description: User transaction category created successfully
           schema:
-            $ref: "#/definitions/Transaction"
+            $ref: "#/definitions/TransactionItemDetailEdit"
         "400":
           description: Invalid Fields
         "500":
@@ -357,6 +352,44 @@ paths:
           description: Category not found
         "500":
           description: Internal Server Error
+  /user/profile/transaction/{transactionsId}/deleteNote:
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - User Transactions
+      summary: User delete notes detail Transaction API
+      description: API delete the detail on a transaction
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          type: string
+          required: true
+        - in: path
+          name: transactionsId
+          description: ID of transaction to fetch
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Create a detail transaction
+          required: true
+          schema:
+            $ref: "#/definitions/TransactionsDeleteNotes"
+      produces:
+        - application/json
+      responses:
+        "201":
+          description: User transaction category delete successfully
+          schema:
+            $ref: "#/definitions/Transaction"
+        "400":
+          description: Invalid Fields
+        "404":
+          description: Category not found
+        "500":
+          description: Internal Server Error
 securityDefinitions:
   Bearer:
     type: apiKey
@@ -419,7 +452,7 @@ definitions:
         amount: 5
         balance: 2082.79
         TransactionDetails:
-          { transaction type: Electronic, category: Food, notes: Macdo }
+          { transaction type: Electronic, category: [Food], notes: [Macdo] }
 
       - id: 62815a98bab4c20e2c6f54ab
         date: "2020-06-20"
@@ -427,7 +460,7 @@ definitions:
         amount: 5
         balance: 2082.79
         TransactionDetails:
-          { transaction type: Electronic, category: Food, notes: Macdo }
+          { transaction type: Electronic, category: [Food], notes: [Macdo] }
   TransactionItem:
     type: object
     properties:
@@ -459,35 +492,87 @@ definitions:
             description: transaction type
             example: Electronic
           category:
-            type: string
             description: transaction category
-            example: Food
+            example:
+              - "Food"
           notes:
             type: string
             description: transaction notes
-            example: Macdo
+            example:
+              - "Macdo"
+  TransactionItemDetailEdit:
+    type: object
+    properties:
+      id:
+        type: string
+        description: transaction ID
+        example: 62815a98bab4c20e2c6f54ab
+      date:
+        type: string
+        description: transaction date
+        example: "2020-06-20"
+      description:
+        type: string
+        description: transaction description
+        example: "Golden Sun Bakery"
+      amount:
+        type: integer
+        description: transaction amount
+        example: 5
+      balance:
+        type: integer
+        description: account balance after transaction
+        example: 2082.79
+      TransactionDetails:
+        type: object
+        properties:
+          transaction type:
+            type: string
+            description: transaction type
+            example: Electronic
+          category:
+            description: transaction category
+            example:
+              - "Food"
+              - "Loisir"
+          notes:
+            description: transaction notes
+            example:
+              - "Macdo"
+              - "Ikea"
   TransactionsAddCategory:
     type: object
     properties:
       category:
         type: string
+        example: Loisir
   TransactionsAddNotes:
     type: object
     properties:
       notes:
         type: string
+        example: Ikea
   TransactionsUpdateCategory:
     type: object
     properties:
       category:
         type: string
+        example: Food
   TransactionsUpdateNotes:
     type: object
     properties:
       notes:
         type: string
+        example: Macdo
   TransactionsDeleteCategory:
+    type: object
+    properties:
+      category:
+        type: string
+        example: Loisir
+  TransactionsDeleteNotes:
     type: object
     properties:
       notes:
         type: string
+        example: Ikea
