@@ -1,5 +1,9 @@
 import React from "react";
 
+/**
+ *
+ * @returns {HTMLElement}
+ */
 function HeroBanner() {
   return (
     <div className="hero">

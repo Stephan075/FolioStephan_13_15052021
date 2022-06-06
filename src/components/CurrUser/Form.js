@@ -3,6 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { editUser } from "../../feature/user.slice";
 import callApi from "../../hooks/callApi";
 
+/**
+ *
+ * @param { function } - permet d'afficher ou non le formulaire
+ * @returns {HTMLElement}
+ */
 const Form = ({ setDisplayForm }) => {
   const [inputForm, setInputForm] = useState({
     firstName: "",

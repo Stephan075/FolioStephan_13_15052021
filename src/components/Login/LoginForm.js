@@ -1,8 +1,13 @@
 import { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setToken } from "../../feature/token.slice";
 import callApi from "../../hooks/callApi";
 
+/**
+ *
+ * @param {function} authenticate - Permet de définir si l'utilisateur est connecté
+ * @returns {HTMLElement}
+ */
 const LoginForm = ({ authenticate }) => {
   const userRef = useRef();
 
@@ -43,8 +48,9 @@ const LoginForm = ({ authenticate }) => {
       } else {
         //Si il ya bien un user qui existe on auth et on redirect à la page profile
         if (token) {
+          // on ajoute le token dans le localStorage
           localStorage.setItem("token", token);
-
+          // on identifier l'utilisateur
           authenticate();
           dispatch(setToken(token));
         }

@@ -1,5 +1,10 @@
 import React from "react";
 
+/**
+ *
+ * @param {Object} - list account
+ * @returns {HTMLElement}
+ */
 const AccountItem = ({ account }) => {
   return (
     <>

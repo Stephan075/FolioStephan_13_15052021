@@ -1,6 +1,7 @@
 import "../conf/axios-conf";
 import * as axios from "axios";
 
+// envoyer email, password au back qui fera la vérification du pseudo&password si c'est ok il nous envoi un token
 const login = (email, password) => {
   return axios
     .post("/user/login", JSON.stringify({ email, password }), {
@@ -16,16 +17,16 @@ const login = (email, password) => {
       return accessToken;
     })
     .catch(function (e) {
-      if (window.console || window.console.firebug) {
-        console.clear();
-      }
+      // if (window.console || window.console.firebug) {
+      //   console.clear();
+      // }
       if (e.response) {
-        // console.log(e.response.data);
         return e.response.data;
       }
     });
 };
 
+// return les info de l'utilisateur actuel
 const getCurrentUserData = () => {
   return axios.post("/user/profile").then((response) => {
     // console.log(response.data.body);
@@ -33,6 +34,7 @@ const getCurrentUserData = () => {
   });
 };
 
+// permet de modifier le firstName et lastName de l'utilisateur actuel
 const updateCurrentUserData = (firstName, lastName) => {
   return axios
     .put("/user/profile", { firstName, lastName })

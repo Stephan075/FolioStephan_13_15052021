@@ -2,6 +2,10 @@ import React from "react";
 import { allAccount } from "../../mocks/content";
 import AccountItem from "./AccountItem";
 
+/**
+ *
+ * @returns {HTMLElement}
+ */
 const AccountCard = () => {
   return (
     <>

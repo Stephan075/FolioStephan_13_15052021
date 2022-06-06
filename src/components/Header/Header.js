@@ -2,6 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
+/**
+ *
+ * @param {boolean} auth -  Utilisateur connecté ou non
+ * @param {function} logout - function qui permet à l'utilisateur de se déconnecter
+ * @returns {HTMLElement}
+ */
 function Header({ auth, logout }) {
   const [firstName, setFirstName] = useState("");
   const userData = useSelector((state) => state.userInfos.userInfos);

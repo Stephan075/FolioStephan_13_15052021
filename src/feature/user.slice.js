@@ -4,16 +4,11 @@ export const userSlice = createSlice({
   name: "user",
   initialState: {
     userInfos: null,
-    email: null,
-    password: null,
   },
   //logique
   reducers: {
     setUserData: (state, action) => {
-      state.userInfos = {
-        ...state.userInfos,
-        ...action.payload,
-      };
+      state.userInfos = action.payload;
     },
     editUser: (state, action) => {
       // console.log(current(state.userInfos));
@@ -30,6 +25,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setUserData, editUser, setEmail, setPassword, resetData } =
-  userSlice.actions;
+export const { setUserData, editUser, resetData } = userSlice.actions;
+
 export default userSlice.reducer;

@@ -6,18 +6,21 @@ import Footer from "./components/Footer/Footer";
 import Profile from "./pages/Profile/Profile";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { resetData, setUserData } from "./feature/user.slice";
-import { resetToken, setToken } from "./feature/token.slice";
+import { resetData } from "./feature/user.slice";
+import { resetToken } from "./feature/token.slice";
 
 function App() {
   const dispatch = useDispatch();
 
+  // recup ce que j'ai dans le local en string et le convertire en JSON et identifier la variable dan
   const [auth, setAuth] = useState(
-    JSON.parse(localStorage.getItem("user"))?.auth // recup ce que j'ai dans le local en string et le convertire en JSON et identifier la variable dan
+    JSON.parse(localStorage.getItem("auth"))?.auth
+      ? JSON.parse(localStorage.getItem("auth"))?.auth
+      : false
   );
 
   useEffect(() => {
-    localStorage.setItem("user", JSON.stringify({ auth }));
+    localStorage.setItem("auth", JSON.stringify({ auth }));
   }, [auth]);
 
   //permet de se déconnecter

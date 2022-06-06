@@ -6,7 +6,10 @@ import setAuthToken from "../../conf/axios-conf";
 import { setUserData } from "../../feature/user.slice";
 import callApi from "../../hooks/callApi";
 
-// immer
+/**
+ *
+ * @returns {HTMLElement}
+ */
 function Profile() {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token.token);
@@ -19,7 +22,8 @@ function Profile() {
         const getUserInfo = async () => {
           setAuthToken(token);
           const userData = await callApi.getCurrentUserData();
-          return userData && dispatch(setUserData(userData));
+
+          return dispatch(setUserData(userData));
         };
         getUserInfo();
       } catch (e) {
